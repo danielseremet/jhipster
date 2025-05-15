@@ -18,6 +18,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.ForwardedHeaderUtils;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
@@ -225,6 +226,11 @@ public class CarResource {
                 )
             );
     }
-    //TODO Provide me an working method that will return the cars based on user's name and surname
 
+    //TODO Provide me an working method that will return the cars based on user's name and surname
+    @GetMapping("/getByCostumer/{name}")
+    public Flux<CarDTO> getByCostumerName(@PathVariable String name) {
+        log.debug("REST request to get costumers {} Cars", name);
+        return carService.findCostumersCars(name);
+    }
 }

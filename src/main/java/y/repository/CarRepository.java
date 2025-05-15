@@ -2,6 +2,8 @@ package y.repository;
 
 import java.util.List;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.r2dbc.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
@@ -27,6 +29,17 @@ public interface CarRepository extends ReactiveCrudRepository<Car, Long>, CarRep
 
     @Override
     Mono<Void> deleteById(Long id);
+
+    @Query(
+        """
+        select * from car c
+        join sale s on c.id = s.car_id
+        join customer cu on s.customer_id = cu.id
+        where cu.first_name = :firstN and cu.last_name = :lastN
+        """
+    )
+    @Override
+    Flux<Car> findCarByCostumer(@Param("firstN") String firstN, @Param("lastN") String lastN);
     // this is not supported at the moment because of https://github.com/jhipster/generator-jhipster/issues/18269
     // Flux<Car> findAllBy(Pageable pageable, Criteria criteria);
 }

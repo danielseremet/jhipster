@@ -1,6 +1,5 @@
 package y.repository;
 
-import java.util.List;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -14,4 +13,6 @@ public interface CarRepositoryInternal {
     Flux<Car> findAll();
 
     Mono<Car> findById(Long id);
+
+    Flux<Car> findCarByCostumer(String firstN, String lastN);
 }

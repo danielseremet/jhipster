@@ -104,6 +104,13 @@ public class CarService {
         return carRepository.findById(id).map(carMapper::toDto);
     }
 
+    @Transactional(readOnly = true)
+    public Flux<CarDTO> findCostumersCars(String name) {
+        log.debug("Request to get CostumersCars : {}", name);
+        String[] names = name.split(" ");
+        return carRepository.findCarByCostumer(names[0], names[1]).map(carMapper::toDto);
+    }
+
     /**
      * Delete the car by id.
      *
