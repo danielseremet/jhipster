@@ -13,6 +13,4 @@ public interface CarRepositoryInternal {
     Flux<Car> findAll();
 
     Mono<Car> findById(Long id);
-
-    Flux<Car> findCarByCostumer(String firstN, String lastN);
 }

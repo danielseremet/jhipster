@@ -32,14 +32,13 @@ public interface CarRepository extends ReactiveCrudRepository<Car, Long>, CarRep
 
     @Query(
         """
-        select * from car c
-        join sale s on c.id = s.car_id
-        join customer cu on s.customer_id = cu.id
-        where cu.first_name = :firstN and cu.last_name = :lastN
+        Select * From car c
+        Join sale s On c.id = s.car_id
+        Join customer cu On s.customer_id = cu.id
+        Where cu.first_name = :firstName And cu.last_name = :lastName
         """
     )
-    @Override
-    Flux<Car> findCarByCostumer(@Param("firstN") String firstN, @Param("lastN") String lastN);
+    Flux<Car> findCarByCostumer(@Param("firstName") String firstName, @Param("lastName") String lastName);
     // this is not supported at the moment because of https://github.com/jhipster/generator-jhipster/issues/18269
     // Flux<Car> findAllBy(Pageable pageable, Criteria criteria);
 }

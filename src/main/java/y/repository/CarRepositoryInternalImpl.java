@@ -79,11 +79,6 @@ class CarRepositoryInternalImpl extends SimpleR2dbcRepository<Car, Long> impleme
         return createQuery(null, whereClause).one();
     }
 
-    @Override
-    public Flux<Car> findCarByCostumer(String firstN, String lastN) {
-        return findCarByCostumer(firstN, lastN);
-    }
-
     private Car process(Row row, RowMetadata metadata) {
         Car entity = carMapper.apply(row, "e");
         return entity;

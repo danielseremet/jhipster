@@ -227,10 +227,10 @@ public class CarResource {
             );
     }
 
-    //TODO Provide me an working method that will return the cars based on user's name and surname
-    @GetMapping("/getByCostumer/{name}")
-    public Flux<CarDTO> getByCostumerName(@PathVariable String name) {
-        log.debug("REST request to get costumers {} Cars", name);
-        return carService.findCostumersCars(name);
+    //TODO Provide me an working method that will return the cars based on user's customerName and surname
+    @GetMapping("/{customerName}")
+    public Flux<CarDTO> getByCostumerName(@PathVariable String customerName) {
+        log.debug("REST request to get costumers {} Cars", customerName);
+        return carService.findCostumersCars(customerName);
     }
 }
