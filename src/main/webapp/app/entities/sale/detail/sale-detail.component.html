@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (sale) {
+      <div>
+        <h2 data-cy="saleDetailsHeading"><span jhiTranslate="shitApp.sale.detail.title">Sale</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ sale.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="shitApp.sale.saleDate">Sale Date</span></dt>
+          <dd>
+            <span>{{ sale.saleDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="shitApp.sale.salePrice">Sale Price</span></dt>
+          <dd>
+            <span>{{ sale.salePrice }}</span>
+          </dd>
+          <dt><span jhiTranslate="shitApp.sale.quantity">Quantity</span></dt>
+          <dd>
+            <span>{{ sale.quantity }}</span>
+          </dd>
+          <dt><span jhiTranslate="shitApp.sale.car">Car</span></dt>
+          <dd>
+            @if (sale.car) {
+              <div>
+                <a [routerLink]="['/car', sale.car.id, 'view']">{{ sale.car.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="shitApp.sale.customer">Customer</span></dt>
+          <dd>
+            @if (sale.customer) {
+              <div>
+                <a [routerLink]="['/customer', sale.customer.id, 'view']">{{ sale.customer.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="shitApp.sale.employee">Employee</span></dt>
+          <dd>
+            @if (sale.employee) {
+              <div>
+                <a [routerLink]="['/employee', sale.employee.id, 'view']">{{ sale.employee.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/sale', sale.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

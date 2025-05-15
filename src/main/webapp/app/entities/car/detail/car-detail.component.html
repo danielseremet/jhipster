@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (car) {
+      <div>
+        <h2 data-cy="carDetailsHeading"><span jhiTranslate="shitApp.car.detail.title">Car</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ car.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="shitApp.car.brand">Brand</span></dt>
+          <dd>
+            <span>{{ car.brand }}</span>
+          </dd>
+          <dt><span jhiTranslate="shitApp.car.model">Model</span></dt>
+          <dd>
+            <span>{{ car.model }}</span>
+          </dd>
+          <dt><span jhiTranslate="shitApp.car.year">Year</span></dt>
+          <dd>
+            <span>{{ car.year }}</span>
+          </dd>
+          <dt><span jhiTranslate="shitApp.car.price">Price</span></dt>
+          <dd>
+            <span>{{ car.price }}</span>
+          </dd>
+          <dt><span jhiTranslate="shitApp.car.mileage">Mileage</span></dt>
+          <dd>
+            <span>{{ car.mileage }}</span>
+          </dd>
+          <dt><span jhiTranslate="shitApp.car.color">Color</span></dt>
+          <dd>
+            <span>{{ car.color }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/car', car.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

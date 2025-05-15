@@ -1,0 +1,39 @@
+entity Car {
+    brand String required,
+    model String required,
+    year Integer required,
+    price BigDecimal required,
+    mileage Integer,
+    color String
+}
+
+entity Customer {
+    firstName String required,
+    lastName String required,
+    email String required,
+    phoneNumber String,
+    address String
+}
+
+entity Sale {
+    saleDate LocalDate required,
+    salePrice BigDecimal required,
+    quantity Integer required
+}
+
+entity Employee {
+    firstName String required,
+    lastName String required,
+    email String required,
+    jobTitle String required
+}
+
+relationship ManyToOne {
+    Sale{car} to Car
+    Sale{customer} to Customer
+    Sale{employee} to Employee
+}
+
+dto Car, Customer, Sale, Employee with mapstruct
+paginate Car, Customer, Sale, Employee with pagination
+service all with serviceClass
