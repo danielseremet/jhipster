@@ -29,6 +29,16 @@ public class CarDTO implements Serializable {
 
     private String color;
 
+    private Boolean available;
+
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
+    }
+
     public Long getId() {
         return id;
     }
@@ -117,6 +127,7 @@ public class CarDTO implements Serializable {
             ", price=" + getPrice() +
             ", mileage=" + getMileage() +
             ", color='" + getColor() + "'" +
+            ", available=" + getAvailable() +
             "}";
     }
 }

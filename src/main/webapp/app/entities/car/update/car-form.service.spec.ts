@@ -26,6 +26,7 @@ describe('Car Form Service', () => {
             price: expect.any(Object),
             mileage: expect.any(Object),
             color: expect.any(Object),
+            available: expect.any(Object),
           }),
         );
       });
@@ -42,6 +43,7 @@ describe('Car Form Service', () => {
             price: expect.any(Object),
             mileage: expect.any(Object),
             color: expect.any(Object),
+            available: expect.any(Object),
           }),
         );
       });

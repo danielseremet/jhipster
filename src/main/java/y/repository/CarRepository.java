@@ -39,6 +39,14 @@ public interface CarRepository extends ReactiveCrudRepository<Car, Long>, CarRep
         """
     )
     Flux<Car> findCarByCostumer(@Param("firstName") String firstName, @Param("lastName") String lastName);
+
+    @Query(
+        """
+        SELECT * FROM car
+        WHERE available=true
+        """
+    )
+    Flux<Car> findAllAvailableCars();
     // this is not supported at the moment because of https://github.com/jhipster/generator-jhipster/issues/18269
     // Flux<Car> findAllBy(Pageable pageable, Criteria criteria);
 }

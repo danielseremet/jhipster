@@ -17,6 +17,7 @@ public class CarSqlHelper {
         columns.add(Column.aliased("price", table, columnPrefix + "_price"));
         columns.add(Column.aliased("mileage", table, columnPrefix + "_mileage"));
         columns.add(Column.aliased("color", table, columnPrefix + "_color"));
+        columns.add(Column.aliased("available", table, columnPrefix + "_available"));
 
         return columns;
     }

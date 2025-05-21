@@ -6,6 +6,7 @@ export interface ICar {
   price?: number | null;
   mileage?: number | null;
   color?: string | null;
+  available?: boolean | null;
 }
 
 export type NewCar = Omit<ICar, 'id'> & { id: null };

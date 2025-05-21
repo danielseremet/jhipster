@@ -206,6 +206,12 @@ public class CarResource {
         return ResponseUtil.wrapOrNotFound(carDTO);
     }
 
+    @GetMapping("/availableCars")
+    public Flux<CarDTO> getAvailableCars() {
+        log.debug("REST request to get available cars");
+        return carService.getAllAvailableCars();
+    }
+
     /**
      * {@code DELETE  /cars/:id} : delete the "id" car.
      *
@@ -228,7 +234,7 @@ public class CarResource {
     }
 
     //TODO Provide me an working method that will return the cars based on user's customerName and surname
-    @GetMapping("/{customerName}")
+    @GetMapping("/customer/{customerName}")
     public Flux<CarDTO> getByCostumerName(@PathVariable String customerName) {
         log.debug("REST request to get costumers {} Cars", customerName);
         return carService.findCostumersCars(customerName);
