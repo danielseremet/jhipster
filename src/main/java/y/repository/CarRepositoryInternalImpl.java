@@ -8,7 +8,6 @@ import org.springframework.data.r2dbc.convert.R2dbcConverter;
 import org.springframework.data.r2dbc.core.R2dbcEntityOperations;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.r2dbc.repository.support.SimpleR2dbcRepository;
-import org.springframework.data.relational.core.query.Criteria;
 import org.springframework.data.relational.core.sql.Comparison;
 import org.springframework.data.relational.core.sql.Condition;
 import org.springframework.data.relational.core.sql.Conditions;
@@ -21,7 +20,6 @@ import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.r2dbc.core.RowsFetchSpec;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import tech.jhipster.service.filter.LongFilter;
 import y.domain.Car;
 import y.repository.rowmapper.CarRowMapper;
 

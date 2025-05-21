@@ -9,6 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import y.repository.EmployeeRepository;
 import y.service.dto.EmployeeDTO;
+import y.service.dto.EmployeeSalesDTO;
 import y.service.mapper.EmployeeMapper;
 
 /**
@@ -102,6 +103,12 @@ public class EmployeeService {
     public Mono<EmployeeDTO> findOne(Long id) {
         log.debug("Request to get Employee : {}", id);
         return employeeRepository.findById(id).map(employeeMapper::toDto);
+    }
+
+    @Transactional(readOnly = true)
+    public Flux<EmployeeSalesDTO> getEmployeeSales() {
+        log.debug("Request to get EmployeeSales");
+        return employeeRepository.getEmployeeSales();
     }
 
     /**

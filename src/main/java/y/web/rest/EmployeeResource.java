@@ -18,6 +18,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.ForwardedHeaderUtils;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
@@ -25,6 +26,7 @@ import tech.jhipster.web.util.reactive.ResponseUtil;
 import y.repository.EmployeeRepository;
 import y.service.EmployeeService;
 import y.service.dto.EmployeeDTO;
+import y.service.dto.EmployeeSalesDTO;
 import y.web.rest.errors.BadRequestAlertException;
 
 /**
@@ -203,6 +205,12 @@ public class EmployeeResource {
         log.debug("REST request to get Employee : {}", id);
         Mono<EmployeeDTO> employeeDTO = employeeService.findOne(id);
         return ResponseUtil.wrapOrNotFound(employeeDTO);
+    }
+
+    @GetMapping("/getSales")
+    public Flux<EmployeeSalesDTO> getSales() {
+        log.debug("REST request to get Sales ");
+        return employeeService.getEmployeeSales();
     }
 
     /**

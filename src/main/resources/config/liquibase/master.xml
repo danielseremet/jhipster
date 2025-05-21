@@ -15,6 +15,8 @@
     <include file="config/liquibase/changelog/20250514132558_added_entity_Customer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20250514132658_added_entity_Sale.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20250514132758_added_entity_Employee.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20250520153000_add_available_column_to_car.xml" relativeToChangelogFile="false"/>
+
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20250514132658_added_entity_constraints_Sale.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->

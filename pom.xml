@@ -526,7 +526,6 @@
                     <version>${maven-eclipse-plugin.version}</version>
                     <configuration>
                         <downloadSources>true</downloadSources>
-                        <downloadJavadocs>true</downloadJavadocs>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -831,8 +830,8 @@
                 <spring.profiles.active>dev${profile.tls}${profile.no-liquibase}</spring.profiles.active>
                 <profile.test>testdev</profile.test>
                 <liquibase-plugin.url>jdbc:postgresql://localhost:5432/shit</liquibase-plugin.url>
-                <liquibase-plugin.username>shit</liquibase-plugin.username>
-                <liquibase-plugin.password/>
+                <liquibase-plugin.username>postgres</liquibase-plugin.username>
+                <liquibase-plugin.password>postgres</liquibase-plugin.password>
             </properties>
             <dependencies>
                 <dependency>

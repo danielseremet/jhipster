@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import y.domain.Car;
 import y.repository.CarRepository;
+import y.repository.SaleRepository;
 import y.service.dto.CarDTO;
+import y.service.dto.SaleDTO;
 import y.service.mapper.CarMapper;
 
 /**
@@ -22,10 +25,13 @@ public class CarService {
 
     private final CarRepository carRepository;
 
+    private final SaleRepository salesRepository;
+
     private final CarMapper carMapper;
 
-    public CarService(CarRepository carRepository, CarMapper carMapper) {
+    public CarService(CarRepository carRepository, SaleRepository salesRepository, CarMapper carMapper) {
         this.carRepository = carRepository;
+        this.salesRepository = salesRepository;
         this.carMapper = carMapper;
     }
 
@@ -71,6 +77,23 @@ public class CarService {
             .map(carMapper::toDto);
     }
 
+    public Mono<Boolean> isAvailable(SaleDTO saleDTO) {
+        return carRepository.findById(saleDTO.getCar().getId()).map(Car::getAvailable).defaultIfEmpty(false);
+    }
+
+    public Mono<CarDTO> updateCarAsSold(SaleDTO saleDTO) {
+        log.debug("Request to update Car Availability");
+
+        return carRepository
+            .findById(saleDTO.getCar().getId())
+            .map(car -> {
+                car.setAvailable(false);
+                return car;
+            })
+            .flatMap(carRepository::save)
+            .map(carMapper::toDto);
+    }
+
     /**
      * Get all the cars.
      *
@@ -102,6 +125,19 @@ public class CarService {
     public Mono<CarDTO> findOne(Long id) {
         log.debug("Request to get Car : {}", id);
         return carRepository.findById(id).map(carMapper::toDto);
+    }
+
+    @Transactional(readOnly = true)
+    public Flux<CarDTO> findCostumersCars(String name) {
+        log.debug("Request to get CostumersCars : {}", name);
+        String[] names = name.split(" ");
+        return carRepository.findCarByCostumer(names[0], names[1]).map(carMapper::toDto);
+    }
+
+    @Transactional(readOnly = true)
+    public Flux<CarDTO> getAllAvailableCars() {
+        log.debug("Request to get all available cars");
+        return carRepository.findAllAvailableCars().map(carMapper::toDto);
     }
 
     /**

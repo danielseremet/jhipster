@@ -18,6 +18,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.ForwardedHeaderUtils;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
@@ -205,6 +206,12 @@ public class CarResource {
         return ResponseUtil.wrapOrNotFound(carDTO);
     }
 
+    @GetMapping("/availableCars")
+    public Flux<CarDTO> getAvailableCars() {
+        log.debug("REST request to get available cars");
+        return carService.getAllAvailableCars();
+    }
+
     /**
      * {@code DELETE  /cars/:id} : delete the "id" car.
      *
@@ -225,6 +232,11 @@ public class CarResource {
                 )
             );
     }
-    //TODO Provide me an working method that will return the cars based on user's name and surname
 
+    //TODO Provide me an working method that will return the cars based on user's customerName and surname
+    @GetMapping("/customer/{customerName}")
+    public Flux<CarDTO> getByCostumerName(@PathVariable String customerName) {
+        log.debug("REST request to get costumers {} Cars", customerName);
+        return carService.findCostumersCars(customerName);
+    }
 }

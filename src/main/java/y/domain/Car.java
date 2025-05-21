@@ -42,7 +42,23 @@ public class Car implements Serializable {
     @Column("color")
     private String color;
 
+    @Column("available")
+    private Boolean available = true;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public Car available(Boolean available) {
+        this.setAvailable(available);
+        return this;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
+    }
 
     public Long getId() {
         return this.id;
@@ -165,6 +181,7 @@ public class Car implements Serializable {
             ", price=" + getPrice() +
             ", mileage=" + getMileage() +
             ", color='" + getColor() + "'" +
+            ", available=" + getAvailable() +
             "}";
     }
 }

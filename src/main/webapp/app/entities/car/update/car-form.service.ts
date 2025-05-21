@@ -24,6 +24,7 @@ type CarFormGroupContent = {
   price: FormControl<ICar['price']>;
   mileage: FormControl<ICar['mileage']>;
   color: FormControl<ICar['color']>;
+  available: FormControl<ICar['available']>;
 };
 
 export type CarFormGroup = FormGroup<CarFormGroupContent>;
@@ -35,7 +36,7 @@ export class CarFormService {
       ...this.getFormDefaults(),
       ...car,
     };
-    return new FormGroup<CarFormGroupContent>({
+    return new FormGroup<CarFormGroupContent>(<CarFormGroupContent>{
       id: new FormControl(
         { value: carRawValue.id, disabled: true },
         {

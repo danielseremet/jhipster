@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import y.repository.CarRepository;
 import y.repository.SaleRepository;
 import y.service.dto.SaleDTO;
 import y.service.mapper.SaleMapper;
+import y.web.rest.errors.BadRequestAlertException;
 
 /**
  * Service Implementation for managing {@link y.domain.Sale}.
@@ -21,11 +23,12 @@ public class SaleService {
     private final Logger log = LoggerFactory.getLogger(SaleService.class);
 
     private final SaleRepository saleRepository;
-
+    private final CarService carService;
     private final SaleMapper saleMapper;
 
-    public SaleService(SaleRepository saleRepository, SaleMapper saleMapper) {
+    public SaleService(SaleRepository saleRepository, CarService carService, SaleMapper saleMapper) {
         this.saleRepository = saleRepository;
+        this.carService = carService;
         this.saleMapper = saleMapper;
     }
 
@@ -37,7 +40,13 @@ public class SaleService {
      */
     public Mono<SaleDTO> save(SaleDTO saleDTO) {
         log.debug("Request to save Sale : {}", saleDTO);
-        return saleRepository.save(saleMapper.toEntity(saleDTO)).map(saleMapper::toDto);
+        return carService
+            .isAvailable(saleDTO)
+            .filter(Boolean::booleanValue)
+            .switchIfEmpty(Mono.error(new BadRequestAlertException("Car is not available for sale", "Car", "car.sold")))
+            .flatMap(available -> carService.updateCarAsSold(saleDTO))
+            .flatMap(car -> saleRepository.save(saleMapper.toEntity(saleDTO)))
+            .map(saleMapper::toDto);
     }
 
     /**
@@ -48,6 +57,7 @@ public class SaleService {
      */
     public Mono<SaleDTO> update(SaleDTO saleDTO) {
         log.debug("Request to update Sale : {}", saleDTO);
+        carService.updateCarAsSold(saleDTO);
         return saleRepository.save(saleMapper.toEntity(saleDTO)).map(saleMapper::toDto);
     }
 
@@ -59,7 +69,6 @@ public class SaleService {
      */
     public Mono<SaleDTO> partialUpdate(SaleDTO saleDTO) {
         log.debug("Request to partially update Sale : {}", saleDTO);
-
         return saleRepository
             .findById(saleDTO.getId())
             .map(existingSale -> {
